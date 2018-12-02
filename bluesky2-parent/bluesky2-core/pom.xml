@@ -5,9 +5,5 @@
     <artifactId>bluesky2-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>bluesky2-web</artifactId>
-  <packaging>pom</packaging>
-  <modules>
-  	<module>bluesky2-web-default</module>
-  </modules>
+  <artifactId>bluesky2-core</artifactId>
 </project>

@@ -4,14 +4,20 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>net.luversof</groupId>
-		<artifactId>bluesky2-app</artifactId>
+		<artifactId>bluesky2-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>bluesky2-app-blog</artifactId>
+	<artifactId>bluesky2-test</artifactId>
 	<dependencies>
+		<!-- (s) spring boot test -->
 		<dependency>
-			<groupId>net.luversof</groupId>
-			<artifactId>bluesky2-opensource-data-mongodb</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>io.projectreactor</groupId>
+			<artifactId>reactor-test</artifactId>
+		</dependency>
+		<!-- (e) spring boot test -->
 	</dependencies>
 </project>

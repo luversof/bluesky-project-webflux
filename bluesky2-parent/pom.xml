@@ -9,11 +9,75 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.1.0.RELEASE</version>
+		<version>2.1.1.RELEASE</version>
 	</parent>
+	<properties>
+		<bluesky-project.version>0.0.1-SNAPSHOT</bluesky-project.version>
+	</properties>
 	<modules>
 		<module>bluesky2-web</module>
 		<module>bluesky2-app</module>
 		<module>bluesky2-domain</module>
+		<module>bluesky2-core</module>
+		<module>bluesky2-test</module>
+		<module>bluesky2-opensource</module>
 	</modules>
+	<dependencies>
+		<!-- (s) spring boot test -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.projectreactor</groupId>
+			<artifactId>reactor-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- (e) spring boot test -->
+
+		<!-- (s) logging -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-logging</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.janino</groupId>
+			<artifactId>janino</artifactId>
+		</dependency>
+		<!-- (e) logging -->
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
+	</dependencies>
+	<dependencyManagement>
+		<dependencies>
+
+			<!-- (s) bluesky-project -->
+			<dependency>
+				<groupId>net.luversof</groupId>
+				<artifactId>bluesky2-core</artifactId>
+				<version>${bluesky-project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.luversof</groupId>
+				<artifactId>bluesky2-test</artifactId>
+				<version>${bluesky-project.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>net.luversof</groupId>
+				<artifactId>bluesky2-opensource-data-mongodb</artifactId>
+				<version>${bluesky-project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.luversof</groupId>
+				<artifactId>bluesky2-app-blog</artifactId>
+				<version>${bluesky-project.version}</version>
+			</dependency>
+			<!-- (e) bluesky-project -->
+		</dependencies>
+	</dependencyManagement>
 </project>
