@@ -19,7 +19,7 @@ import lombok.Data;
 public class Blog {
 
 	@Id
-	private long id;
+	private UUID id;
 
 	private UUID userId;
 	
