@@ -13,5 +13,10 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
+		
+		<dependency>
+			<groupId>net.luversof</groupId>
+			<artifactId>bluesky2-app-blog</artifactId>
+		</dependency>
 	</dependencies>
 </project>

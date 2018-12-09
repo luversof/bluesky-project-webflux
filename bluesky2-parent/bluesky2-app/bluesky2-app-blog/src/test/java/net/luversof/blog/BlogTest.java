@@ -26,12 +26,17 @@ public class BlogTest extends GeneralTest {
 		blog.setUserId(UUID.randomUUID());
 		log.debug("test22 : {}", blogRepository.save(blog).block());
 //		blogRepository.findAll().log();
-		log.debug("test2 : {}", blogRepository.findAll().blockFirst());
+		
 	}
 	
 	@Test
 	public void test2() {
-		Mono<Blog> findByUserId = blogRepository.findByUserId(UUID.fromString("ad8b89eb-4df3-454d-a640-537fa0104aef"));
+		Mono<Blog> findByUserId = blogRepository.findByUserId(UUID.fromString("39bada3b-9047-4c81-8386-d58854e802fa"));
 		log.debug("test : {}", findByUserId.block());
+	}
+	
+	@Test
+	public void test3() {
+		log.debug("test : {}", blogRepository.findAll().collectList().block());
 	}
 }
