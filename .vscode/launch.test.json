@@ -1,0 +1,120 @@
+{
+    "run": {
+        "default": "",
+        "items": [
+            {
+                "name": "bluesky2-domain",
+                "projectName": "bluesky2-domain",
+                "workingDirectory": "c:\\Users\\bluesky\\git\\bluesky-project-webflux\\bluesky2-parent\\bluesky2-domain",
+                "args": [],
+                "vmargs": [],
+                "env": {},
+                "preLaunchTask": ""
+            },
+            {
+                "name": "bluesky2-core",
+                "projectName": "bluesky2-core",
+                "workingDirectory": "c:\\Users\\bluesky\\git\\bluesky-project-webflux\\bluesky2-parent\\bluesky2-core",
+                "args": [],
+                "vmargs": [],
+                "env": {},
+                "preLaunchTask": ""
+            },
+            {
+                "name": "bluesky2-opensource-data-mongodb",
+                "projectName": "bluesky2-opensource-data-mongodb",
+                "workingDirectory": "c:\\Users\\bluesky\\git\\bluesky-project-webflux\\bluesky2-parent\\bluesky2-opensource\\bluesky2-opensource-data-mongodb",
+                "args": [],
+                "vmargs": [],
+                "env": {},
+                "preLaunchTask": ""
+            },
+            {
+                "name": "bluesky2-app-blog",
+                "projectName": "bluesky2-app-blog",
+                "workingDirectory": "c:\\Users\\bluesky\\git\\bluesky-project-webflux\\bluesky2-parent\\bluesky2-app\\bluesky2-app-blog",
+                "args": [],
+                "vmargs": [],
+                "env": {},
+                "preLaunchTask": ""
+            },
+            {
+                "name": "bluesky2-test",
+                "projectName": "bluesky2-test",
+                "workingDirectory": "c:\\Users\\bluesky\\git\\bluesky-project-webflux\\bluesky2-parent\\bluesky2-test",
+                "args": [],
+                "vmargs": [],
+                "env": {},
+                "preLaunchTask": ""
+            },
+            {
+                "name": "bluesky2-web-default",
+                "projectName": "bluesky2-web-default",
+                "workingDirectory": "c:\\Users\\bluesky\\git\\bluesky-project-webflux\\bluesky2-parent\\bluesky2-web\\bluesky2-web-default",
+                "args": [],
+                "vmargs": [],
+                "env": {},
+                "preLaunchTask": ""
+            }
+        ]
+    },
+    "debug": {
+        "default": "",
+        "items": [
+            {
+                "name": "bluesky2-domain",
+                "projectName": "bluesky2-domain",
+                "workingDirectory": "c:\\Users\\bluesky\\git\\bluesky-project-webflux\\bluesky2-parent\\bluesky2-domain",
+                "args": [],
+                "vmargs": [],
+                "env": {},
+                "preLaunchTask": ""
+            },
+            {
+                "name": "bluesky2-core",
+                "projectName": "bluesky2-core",
+                "workingDirectory": "c:\\Users\\bluesky\\git\\bluesky-project-webflux\\bluesky2-parent\\bluesky2-core",
+                "args": [],
+                "vmargs": [],
+                "env": {},
+                "preLaunchTask": ""
+            },
+            {
+                "name": "bluesky2-opensource-data-mongodb",
+                "projectName": "bluesky2-opensource-data-mongodb",
+                "workingDirectory": "c:\\Users\\bluesky\\git\\bluesky-project-webflux\\bluesky2-parent\\bluesky2-opensource\\bluesky2-opensource-data-mongodb",
+                "args": [],
+                "vmargs": [],
+                "env": {},
+                "preLaunchTask": ""
+            },
+            {
+                "name": "bluesky2-app-blog",
+                "projectName": "bluesky2-app-blog",
+                "workingDirectory": "c:\\Users\\bluesky\\git\\bluesky-project-webflux\\bluesky2-parent\\bluesky2-app\\bluesky2-app-blog",
+                "args": [],
+                "vmargs": [],
+                "env": {},
+                "preLaunchTask": ""
+            },
+            {
+                "name": "bluesky2-test",
+                "projectName": "bluesky2-test",
+                "workingDirectory": "c:\\Users\\bluesky\\git\\bluesky-project-webflux\\bluesky2-parent\\bluesky2-test",
+                "args": [],
+                "vmargs": [],
+                "env": {},
+                "preLaunchTask": ""
+            },
+            {
+                "name": "bluesky2-web-default",
+                "projectName": "bluesky2-web-default",
+                "workingDirectory": "c:\\Users\\bluesky\\git\\bluesky-project-webflux\\bluesky2-parent\\bluesky2-web\\bluesky2-web-default",
+                "args": [],
+                "vmargs": [],
+                "env": {},
+                "preLaunchTask": ""
+            }
+        ]
+    }
+}
