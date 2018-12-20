@@ -13,15 +13,15 @@ import net.luversof.web.blog.handler.BlogHandler;
 @Configuration
 public class WebFluxConfig implements WebFluxConfigurer {
 
-	@Bean
-	public RouterFunction<ServerResponse> routes(BlogRepository blogRepository) {
-
-		BlogHandler blogHandler = new BlogHandler(blogRepository);
-		
-		return RouterFunctions
-				.route()
-					.GET("/blog/search/findAll", blogHandler::findAll)
-					.GET("/blog/search/findByUserId", blogHandler::getBlog)
-				.build();
-	}
+//	@Bean
+//	public RouterFunction<ServerResponse> routes(BlogRepository blogRepository) {
+//
+//		BlogHandler blogHandler = new BlogHandler(blogRepository);
+//		
+//		return RouterFunctions
+//				.route()
+//					.GET("/blog/search/findAll", blogHandler::findAll)
+//					.GET("/blog/search/findByUserId", blogHandler::findByUserId)
+//				.build();
+//	}
 }

@@ -25,10 +25,11 @@ public class BlogHandler {
 		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(blogFlux, Blog.class);
 	}
 	
-	public Mono<ServerResponse> getBlog(ServerRequest request) {
+	public Mono<ServerResponse> findByUserId(ServerRequest request) {
 		UUID userId = UUID.fromString(request.queryParam("userId").get());
 		return blogRepository.findByUserId(userId)
 				.flatMap(blog -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(BodyInserters.fromObject(blog)))
 				.switchIfEmpty(ServerResponse.notFound().build());
 	}
+	
 }
