@@ -11,6 +11,7 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>bluesky2-app-blog</module>
+		<module>bluesky2-app-notification</module>
 	</modules>
 	<dependencies>
 		<dependency>
