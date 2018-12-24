@@ -1,14 +1,14 @@
 package net.luversof.notification.domain;
 
-import org.springframework.data.annotation.Id;
+
+import org.bson.types.ObjectId;
 
 import lombok.Data;
 
 @Data
 public class Notification {
 	
-	@Id
-	private long id;
+	private ObjectId id;
 	
 	private String message;
 }
