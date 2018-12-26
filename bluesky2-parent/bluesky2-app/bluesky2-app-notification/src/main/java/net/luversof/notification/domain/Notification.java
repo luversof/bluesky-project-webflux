@@ -11,4 +11,8 @@ public class Notification {
 	private ObjectId id;
 	
 	private String message;
+	
+	public String getIdString() {
+		return id.toString();
+	}
 }
