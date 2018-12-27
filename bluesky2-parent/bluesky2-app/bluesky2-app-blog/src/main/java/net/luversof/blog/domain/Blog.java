@@ -3,9 +3,9 @@ package net.luversof.blog.domain;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
 
@@ -15,11 +15,10 @@ import lombok.Data;
  *
  */
 @Data
-@Document
 public class Blog {
 
 	@Id
-	private UUID id;
+	private long id;
 
 	private UUID userId;
 	

@@ -27,8 +27,9 @@ public class BlogTest extends GeneralTest {
 		log.debug("Test : {}", "sfsd");
 		
 		Blog blog = new Blog();
-		blog.setId(UUID.randomUUID());
+		blog.setId(3);
 		blog.setUserId(UUID.randomUUID());
+		
 		log.debug("test22 : {}", blogRepository.save(blog).block());
 //		blogRepository.findAll().log();
 		
