@@ -4,23 +4,14 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>net.luversof</groupId>
-		<artifactId>bluesky2-parent</artifactId>
+		<artifactId>bluesky2-app</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>bluesky2-opensource</artifactId>
-	<packaging>pom</packaging>
-	<modules>
-		<module>bluesky2-opensource-data-mongodb</module>
-		<module>bluesky2-opensource-security</module>
-	</modules>
+	<artifactId>bluesky2-app-user</artifactId>
 	<dependencies>
 		<dependency>
 			<groupId>net.luversof</groupId>
-			<artifactId>bluesky2-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>net.luversof</groupId>
-			<artifactId>bluesky2-test</artifactId>
+			<artifactId>bluesky2-opensource-data-mongodb</artifactId>
 		</dependency>
 	</dependencies>
 </project>

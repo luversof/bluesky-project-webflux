@@ -18,11 +18,14 @@ import lombok.Data;
 public class Blog {
 
 	@Id
-	private long id;
+	private ObjectId id;
 
 	private UUID userId;
 	
 	@CreatedDate
 	private LocalDateTime createdDate;
 
+	public String getIdString() {
+		return id.toString();
+	}
 }

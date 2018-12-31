@@ -14,6 +14,7 @@
 	<properties>
 		<java.version>11</java.version>
 		<bluesky-project.version>0.0.1-SNAPSHOT</bluesky-project.version>
+		<spring-cloud.version>Finchley.SR2</spring-cloud.version>
 	</properties>
 	<modules>
 		<module>bluesky2-web</module>
@@ -55,6 +56,16 @@
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
+			<!-- (s) spring cloud -->
+			<!-- 버전관리를 편하게 하려고 cloud 의존성을 여기서 관리하고 있으나 분리하는 것이 좋다. -->
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!-- (e) spring cloud -->
 
 			<!-- (s) bluesky-project -->
 			<dependency>
@@ -64,13 +75,7 @@
 			</dependency>
 			<dependency>
 				<groupId>net.luversof</groupId>
-				<artifactId>bluesky2-test</artifactId>
-				<version>${bluesky-project.version}</version>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>net.luversof</groupId>
-				<artifactId>bluesky2-opensource-data-mongodb</artifactId>
+				<artifactId>bluesky2-opensource-security</artifactId>
 				<version>${bluesky-project.version}</version>
 			</dependency>
 			<dependency>
@@ -82,6 +87,27 @@
 				<groupId>net.luversof</groupId>
 				<artifactId>bluesky2-app-notification</artifactId>
 				<version>${bluesky-project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.luversof</groupId>
+				<artifactId>bluesky2-app-user</artifactId>
+				<version>${bluesky-project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.luversof</groupId>
+				<artifactId>bluesky2-opensource-data-mongodb</artifactId>
+				<version>${bluesky-project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.luversof</groupId>
+				<artifactId>bluesky2-opensource-security</artifactId>
+				<version>${bluesky-project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.luversof</groupId>
+				<artifactId>bluesky2-test</artifactId>
+				<version>${bluesky-project.version}</version>
+				<scope>test</scope>
 			</dependency>
 			<!-- (e) bluesky-project -->
 		</dependencies>

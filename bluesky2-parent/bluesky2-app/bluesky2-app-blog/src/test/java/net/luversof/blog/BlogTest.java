@@ -1,7 +1,5 @@
 package net.luversof.blog;
 
-import static org.junit.Assert.assertNotNull;
-
 import java.util.UUID;
 
 import org.junit.Test;
@@ -11,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import net.luversof.blog.domain.Blog;
 import net.luversof.blog.repository.BlogRepository;
 import net.luversof.test.GeneralTest;
-import reactor.core.Disposable;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
@@ -27,7 +24,6 @@ public class BlogTest extends GeneralTest {
 		log.debug("Test : {}", "sfsd");
 		
 		Blog blog = new Blog();
-		blog.setId(3);
 		blog.setUserId(UUID.randomUUID());
 		
 		log.debug("test22 : {}", blogRepository.save(blog).block());
