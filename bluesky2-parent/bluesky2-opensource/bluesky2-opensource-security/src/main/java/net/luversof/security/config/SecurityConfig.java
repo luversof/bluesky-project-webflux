@@ -9,6 +9,7 @@ import org.springframework.security.oauth2.client.web.server.ServerOAuth2Authori
 import org.springframework.security.web.server.SecurityWebFilterChain;
 
 import net.luversof.security.core.userdetails.BlueskyUserDetailsService;
+import net.luversof.security.oauth2.client.BlueskyReactiveOAuth2AuthorizedClientService;
 
 @Configuration
 public class SecurityConfig {
@@ -19,10 +20,14 @@ public class SecurityConfig {
 	@Autowired
 	private ServerOAuth2AuthorizedClientRepository authorizedClientRepository;
 	
+	@Autowired
+	private BlueskyReactiveOAuth2AuthorizedClientService blueskyReactiveOAuth2AuthorizedClientService;
+	
 	@Bean
 	public SecurityWebFilterChain configure(ServerHttpSecurity http) throws Exception {
 	    http
-	        .oauth2Client().authorizedClientRepository(authorizedClientRepository);
+//	        .oauth2Client().authorizedClientRepository(authorizedClientRepository);
+	     .oauth2Login().authorizedClientService(blueskyReactiveOAuth2AuthorizedClientService);
 	    return http.build();
 	}
 }
