@@ -14,10 +14,12 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.security.oauth2.client.registration.ReactiveClientRegistrationRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.util.ObjectUtils;
 
 import net.luversof.user.domain.User;
 import net.luversof.user.domain.UserType;
 import net.luversof.user.service.UserService;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
@@ -53,16 +55,21 @@ public class BlueskyReactiveOAuth2AuthorizedClientService implements ReactiveOAu
 		Assert.notNull(authorizedClient, "authorizedClient cannot be null");
 		Assert.notNull(principal, "principal cannot be null");
 		// db에 없으면 add하는 처리 추가
-		Mono<User> userMono = userService.findByExternalIdAndUserType(principal.getName(), UserType.findByName(authorizedClient.getClientRegistration().getRegistrationId()));
-		userMono.subscribe(user -> {
-			List<String> authorityList = principal.getAuthorities().stream().map(grantedAuthority -> grantedAuthority.getAuthority()).collect(Collectors.toList());
-			userService.addUser(principal.getName(), UserType.findByName(authorizedClient.getClientRegistration().getRegistrationId()), principal.getName(), authorityList);
-		});
+		Mono<User> userMono = 
+				userService.findByExternalIdAndUserType(principal.getName(), UserType.findByName(authorizedClient.getClientRegistration().getRegistrationId()))
+				.flatMap(user -> {
+					if(ObjectUtils.isEmpty(user)) {
+						List<String> authorityList = principal.getAuthorities().stream().map(grantedAuthority -> grantedAuthority.getAuthority()).collect(Collectors.toList());
+						return userService.addUser(principal.getName(), UserType.findByName(authorizedClient.getClientRegistration().getRegistrationId()), principal.getName(), authorityList);
+					} else {
+						return Mono.empty();
+					}
+				});
 		
 		return Mono.fromRunnable(() -> {
 			String identifier = this.getIdentifier(authorizedClient.getClientRegistration(), principal.getName());
 			this.authorizedClients.put(identifier, authorizedClient);
-		});
+		}).mergeWith(userMono).then(Mono.empty());
 	}
 
 	@Override
