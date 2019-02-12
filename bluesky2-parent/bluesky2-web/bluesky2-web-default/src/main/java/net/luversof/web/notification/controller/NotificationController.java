@@ -42,6 +42,7 @@ public class NotificationController {
 		});
 	}
 	
+	// 이거 계속 호출함. 위에꺼는 연결 끊으면 더이상 호출안하는데 차이가 무엇인지 확인 필요
 	@GetMapping(value = "/getMessage2", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
 	public Flux<Notification> getMessage2() {
 		// 담아 쓸만한 객체는 뭐가 있을까?
