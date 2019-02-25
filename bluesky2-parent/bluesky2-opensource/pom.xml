@@ -10,7 +10,6 @@
 	<artifactId>bluesky2-opensource</artifactId>
 	<packaging>pom</packaging>
 	<modules>
-		<module>bluesky2-opensource-data-mongodb</module>
 		<module>bluesky2-opensource-security</module>
 	</modules>
 	<dependencies>

@@ -10,8 +10,8 @@
 	<artifactId>bluesky2-app-notification</artifactId>
 	<dependencies>
 		<dependency>
-			<groupId>net.luversof</groupId>
-			<artifactId>bluesky2-opensource-data-mongodb</artifactId>
+			<groupId>net.luversof.boot</groupId>
+			<artifactId>bluesky-boot-starter-data-mongodb-reactive</artifactId>
 		</dependency>
 	</dependencies>
 </project>

@@ -7,14 +7,12 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.1.2.RELEASE</version>
+		<groupId>net.luversof.boot</groupId>
+		<artifactId>bluesky-boot-starter-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<properties>
-		<java.version>11</java.version>
 		<bluesky-project.version>0.0.1-SNAPSHOT</bluesky-project.version>
-		<spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
 	</properties>
 	<modules>
 		<module>bluesky2-web</module>
@@ -37,21 +35,15 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- (e) spring boot test -->
-
-		<!-- (s) logging -->
+		
+		<dependency>
+			<groupId>net.luversof.boot</groupId>
+			<artifactId>bluesky-boot-starter</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-logging</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.codehaus.janino</groupId>
-			<artifactId>janino</artifactId>
-		</dependency>
-		<!-- (e) logging -->
-
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
 		</dependency>
 	</dependencies>
 	<dependencyManagement>
@@ -91,11 +83,6 @@
 			<dependency>
 				<groupId>net.luversof</groupId>
 				<artifactId>bluesky2-app-user</artifactId>
-				<version>${bluesky-project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>net.luversof</groupId>
-				<artifactId>bluesky2-opensource-data-mongodb</artifactId>
 				<version>${bluesky-project.version}</version>
 			</dependency>
 			<dependency>
