@@ -5,7 +5,6 @@ import java.util.UUID;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.Id;
 
 import lombok.Data;
 
@@ -17,7 +16,6 @@ import lombok.Data;
 @Data
 public class Blog {
 
-	@Id
 	private ObjectId id;
 
 	private UUID userId;

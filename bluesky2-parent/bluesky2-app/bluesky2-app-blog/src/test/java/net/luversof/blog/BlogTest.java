@@ -1,5 +1,7 @@
 package net.luversof.blog;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.util.UUID;
 
 import org.junit.Test;
@@ -40,16 +42,15 @@ public class BlogTest extends GeneralTest {
 	@Test
 	public void test3() {
 		log.debug("start");
-		//log.debug("test : {}", blogRepository.findAll().collectList().block());
 		Flux<Blog> blogFlux = blogRepository.findAll().log();
 		
 		StepVerifier.create(blogFlux)
-//		.assertNext(blog -> {
-//			//assertNotNull(blog.getId());
-//		})
-		.expectNextCount(4)
-		.expectComplete().verify();
-		// blogRepository.findAll().log();//.subscribe(a -> log.debug("result : {}", a));
-		log.debug("end");
+		.assertNext(blog -> {
+			log.debug("assert Test : {}", blog);
+			assertNotNull(blog.getId());
+		})
+		.expectNextCount(1)
+		.expectComplete()
+		.verify();
 	}
 }
