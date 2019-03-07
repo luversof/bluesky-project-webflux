@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
 
+import lombok.extern.slf4j.Slf4j;
 import net.luversof.user.domain.User;
 import net.luversof.user.domain.UserType;
 import net.luversof.user.service.UserService;
@@ -27,6 +28,7 @@ import reactor.core.publisher.Mono;
  * @author luver
  *
  */
+@Slf4j
 @Service
 public class BlueskyReactiveOAuth2AuthorizedClientService implements ReactiveOAuth2AuthorizedClientService {
 	
@@ -54,22 +56,24 @@ public class BlueskyReactiveOAuth2AuthorizedClientService implements ReactiveOAu
 	public Mono<Void> saveAuthorizedClient(OAuth2AuthorizedClient authorizedClient, Authentication principal) {
 		Assert.notNull(authorizedClient, "authorizedClient cannot be null");
 		Assert.notNull(principal, "principal cannot be null");
+		log.debug("saveAuthorizedClient call, authorizedClient : {}, authentication : {}", authorizedClient, principal);
 		// db에 없으면 add하는 처리 추가
-		Mono<User> userMono = 
-				userService.findByExternalIdAndUserType(principal.getName(), UserType.findByName(authorizedClient.getClientRegistration().getRegistrationId()))
+		return userService.findByExternalIdAndUserType(principal.getName(), UserType.findByName(authorizedClient.getClientRegistration().getRegistrationId()))
+				.switchIfEmpty(Mono.just(new User()))
 				.flatMap(user -> {
-					if(ObjectUtils.isEmpty(user)) {
+					if(user.getId() == null) {
+						log.debug("user is emptry : {}", user);
 						List<String> authorityList = principal.getAuthorities().stream().map(grantedAuthority -> grantedAuthority.getAuthority()).collect(Collectors.toList());
 						return userService.addUser(principal.getName(), UserType.findByName(authorizedClient.getClientRegistration().getRegistrationId()), principal.getName(), authorityList);
 					} else {
-						return Mono.empty();
+						log.debug("user is not emptry : {}", user);
+						return Mono.just(user);
 					}
+				}).flatMap(user -> {
+					String identifier = this.getIdentifier(authorizedClient.getClientRegistration(), principal.getName());
+					this.authorizedClients.put(identifier, authorizedClient);
+					return Mono.empty();
 				});
-		
-		return Mono.fromRunnable(() -> {
-			String identifier = this.getIdentifier(authorizedClient.getClientRegistration(), principal.getName());
-			this.authorizedClients.put(identifier, authorizedClient);
-		}).mergeWith(userMono).then(Mono.empty());
 	}
 
 	@Override

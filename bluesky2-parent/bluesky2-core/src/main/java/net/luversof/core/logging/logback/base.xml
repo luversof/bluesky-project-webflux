@@ -23,7 +23,7 @@
 	<logger name="org.springframework" level="DEBUG" />
 	<logger name="org.springframework.boot" level="DEBUG" />
 	<!-- <logger name="org.springframework.boot" level="${loggerLevelBluesky}" /> -->
-	<!-- <logger name="org.springframework.security" level="${loggerLevelBluesky}" /> -->
+	<logger name="org.springframework.security" level="${loggerLevelBluesky}" />
 	<logger name="org.mybatis" level="debug" />
 	
 	<if condition='p("spring.profiles.active").equals("live")'>

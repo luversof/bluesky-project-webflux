@@ -31,4 +31,17 @@ public class UserTest extends GeneralTest {
 		Flux<User> findAll = userRepository.findAll();
 		log.debug("result : {}", findAll.collectList().block());
 	}
+	
+	
+	@Test
+	public void test2() {
+		Mono<User> userMono = userService.findByUsername("test")
+		.log()
+		.switchIfEmpty(Mono.empty())
+		.flatMap(user -> {
+			log.debug("test!!! : {} ", user);
+			return Mono.empty();
+		});
+		log.debug("block : {}", userMono.block());
+	}
 }
