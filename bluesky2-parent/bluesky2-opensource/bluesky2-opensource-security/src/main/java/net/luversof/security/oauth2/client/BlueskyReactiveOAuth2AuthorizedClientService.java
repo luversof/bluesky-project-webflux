@@ -14,13 +14,11 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.security.oauth2.client.registration.ReactiveClientRegistrationRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import org.springframework.util.ObjectUtils;
 
 import lombok.extern.slf4j.Slf4j;
 import net.luversof.user.domain.User;
 import net.luversof.user.domain.UserType;
 import net.luversof.user.service.UserService;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**

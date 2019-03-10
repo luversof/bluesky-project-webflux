@@ -13,6 +13,7 @@
 		<module>bluesky2-app-blog</module>
 		<module>bluesky2-app-notification</module>
 		<module>bluesky2-app-user</module>
+		<module>bluesky2-app-bookkeeping</module>
 	</modules>
 	<dependencies>
 		<dependency>
