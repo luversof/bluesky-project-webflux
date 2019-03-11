@@ -7,12 +7,10 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.client.web.server.ServerOAuth2AuthorizedClientRepository;
 import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.header.XFrameOptionsServerHttpHeadersWriter.Mode;
 
-import net.luversof.security.core.userdetails.BlueskyUserDetailsService;
 import net.luversof.security.oauth2.client.BlueskyReactiveOAuth2AuthorizedClientService;
 
 @Configuration
@@ -23,12 +21,6 @@ public class SecurityConfig {
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
-	@Autowired
-	private BlueskyUserDetailsService userDetailsService;
-	
-	@Autowired
-	private ServerOAuth2AuthorizedClientRepository authorizedClientRepository;
 	
 	@Autowired
 	private BlueskyReactiveOAuth2AuthorizedClientService blueskyReactiveOAuth2AuthorizedClientService;

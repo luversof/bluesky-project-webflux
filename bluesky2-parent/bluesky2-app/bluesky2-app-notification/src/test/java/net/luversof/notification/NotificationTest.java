@@ -8,7 +8,6 @@ import org.bson.types.ObjectId;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
 
 import lombok.extern.slf4j.Slf4j;
 import net.luversof.notification.domain.Notification;
