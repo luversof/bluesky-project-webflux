@@ -10,5 +10,7 @@ import reactor.core.publisher.Flux;
 public interface BookkeepingRepository extends ReactiveMongoRepository<Bookkeeping, String> {
 	
 	Flux<Bookkeeping> findByUserId(UUID userId);
+	
+//	Mono<Bookkeeping> findByAssetListId(ObjectId id);
 
 }

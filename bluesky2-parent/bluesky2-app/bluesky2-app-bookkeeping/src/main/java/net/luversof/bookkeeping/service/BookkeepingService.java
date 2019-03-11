@@ -2,9 +2,11 @@ package net.luversof.bookkeeping.service;
 
 import java.util.UUID;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import net.luversof.bookkeeping.constant.AssetType;
 import net.luversof.bookkeeping.domain.Asset;
 import net.luversof.bookkeeping.domain.Bookkeeping;
 import net.luversof.bookkeeping.repository.BookkeepingRepository;
@@ -16,9 +18,6 @@ public class BookkeepingService {
 	
 	@Autowired
 	private BookkeepingRepository bookkeepingRepository;
-	
-	@Autowired
-	private AssetService assetService;
 	
 	public Flux<Bookkeeping> findByUserId(UUID userId) {
 		return bookkeepingRepository.findByUserId(userId);
@@ -35,16 +34,8 @@ public class BookkeepingService {
 		return Mono.just(new Bookkeeping())
 			.flatMap(bookkeeping -> {
 				if (bookkeeping.getId() == null) {
-					return assetService.create(userId).flatMap(asset -> {
-						bookkeeping.getAssetList().add(asset);
-						return Flux.just(bookkeeping);
-					}).then(Mono.just(bookkeeping));
-				}
-				return Mono.just(bookkeeping);
-			})
-			.flatMap(bookkeeping -> {
-				if (bookkeeping.getId() == null) {
 					bookkeeping.setUserId(userId);
+					bookkeeping.getAssetList().add(new Asset(new ObjectId(), AssetType.WALLET, "지갑"));
 					return bookkeepingRepository.save(bookkeeping);
 				}
 				return Mono.just(bookkeeping);
@@ -54,16 +45,44 @@ public class BookkeepingService {
 	public Mono<Bookkeeping> addAsset(String id, Asset asset) {
 		return bookkeepingRepository.findById(id)
 			.flatMap(bookkeeping -> {
-				assetService.add(asset).flatMap(targetAsset -> {
-					bookkeeping.getAssetList().add(targetAsset);
-					return Mono.just(targetAsset);
-				});
-				return Mono.just(bookkeeping);
-			})
-			.flatMap(bookkeeping -> {
-				bookkeepingRepository.save(bookkeeping);
-				return Mono.just(bookkeeping);
+				if (asset.getId() == null) {
+					asset.setId(new ObjectId());
+				}
+				bookkeeping.getAssetList().add(asset);
+				return bookkeepingRepository.save(bookkeeping);
 			});
+	}
+	
+	/**
+	 * asset 정보 변경
+	 * @param id
+	 * @param asset
+	 * @return
+	 */
+	public Mono<Bookkeeping> updateAsset(String id, Asset asset) {
+		return bookkeepingRepository.findById(id)
+				.flatMap(bookkeeping -> {
+					for (int i = 0 ; i < bookkeeping.getAssetList().size(); i++) {
+						if (bookkeeping.getAssetList().get(i).getId().equals(asset.getId())) {
+							bookkeeping.getAssetList().set(i, asset);
+							return bookkeepingRepository.save(bookkeeping);
+						}
+					}
+					throw new RuntimeException("NOT_EXIST_ASSET");
+				});
+	}
+	
+	public Mono<Bookkeeping> deleteAsset(String id, ObjectId assetId) {
+		return bookkeepingRepository.findById(id)
+				.flatMap(bookkeeping -> {
+					for (int i = 0 ; i < bookkeeping.getAssetList().size(); i++) {
+						if (bookkeeping.getAssetList().get(i).getId().equals(assetId)) {
+							bookkeeping.getAssetList().remove(i);
+							return bookkeepingRepository.save(bookkeeping);
+						}
+					}
+					throw new RuntimeException("NOT_EXIST_ASSET");
+				});
 	}
 	
 }

@@ -1,10 +1,9 @@
 package net.luversof.bookkeeping.domain;
 
-import java.util.UUID;
-
 import org.bson.types.ObjectId;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import net.luversof.bookkeeping.constant.AssetType;
@@ -16,13 +15,12 @@ import net.luversof.bookkeeping.constant.AssetType;
  *
  */
 @Data
+@NoArgsConstructor
 @RequiredArgsConstructor
 public class Asset {
 
-	private ObjectId id;
-	
 	@NonNull
-	private UUID userId;
+	private ObjectId id;
 	
 	private long amount;
 	

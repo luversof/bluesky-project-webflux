@@ -7,7 +7,6 @@ import java.util.UUID;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import lombok.Data;
 
@@ -21,6 +20,5 @@ public class Bookkeeping {
 	@CreatedDate
 	private LocalDateTime createdDate;
 	
-	@DBRef		
 	private List<Asset> assetList = new ArrayList<>();
 }
