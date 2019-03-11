@@ -5,10 +5,10 @@ import java.util.UUID;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 
 import net.luversof.bookkeeping.domain.Bookkeeping;
-import reactor.core.publisher.Mono;
+import reactor.core.publisher.Flux;
 
 public interface BookkeepingRepository extends ReactiveMongoRepository<Bookkeeping, String> {
 	
-	Mono<Bookkeeping> findByUserId(UUID userId);
+	Flux<Bookkeeping> findByUserId(UUID userId);
 
 }
