@@ -3,7 +3,9 @@ package net.luversof.bookkeeping;
 import java.util.UUID;
 
 import org.bson.types.ObjectId;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +19,7 @@ import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 @Slf4j
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class BookkeepingTest extends GeneralTest {
 
 	@Autowired
@@ -27,7 +30,7 @@ public class BookkeepingTest extends GeneralTest {
 	ObjectId assetId = new ObjectId("5c86bb6eef53c9446c916876");
 	
 	@Test
-	public void create() {
+	public void t1_create() {
 		Mono<Bookkeeping> bookkeepingMono = bookkeepingService.findByUserId(userId).switchIfEmpty(Mono.just(new Bookkeeping())).next()
 			.flatMap(bookkeeping -> {
 				if (bookkeeping.getId() == null) {
@@ -43,7 +46,7 @@ public class BookkeepingTest extends GeneralTest {
 	}
 	
 	@Test
-	public void findByUserId() {
+	public void t2_findByUserId() {
 		Flux<Bookkeeping> bookkeepingFlux = bookkeepingService.findByUserId(userId).log();
 		
 		StepVerifier.create(bookkeepingFlux)
@@ -53,14 +56,14 @@ public class BookkeepingTest extends GeneralTest {
 	}
 	
 	@Test
-	public void addAsset() {
+	public void t3_addAsset() {
 		
 		Flux<Bookkeeping> bookkeepingFlux = bookkeepingService.findByUserId(userId).flatMap(bookkeeping -> {
 			Asset asset = new Asset();
 			asset.setId(assetId);
 			asset.setAssetType(AssetType.WALLET);
 			asset.setName("지갑");
-			return bookkeepingService.addAsset(bookkeeping.getId().toString(), asset);
+			return bookkeepingService.addAsset(bookkeeping.getId(), asset);
 		});
 		
 		StepVerifier.create(bookkeepingFlux)
@@ -73,14 +76,14 @@ public class BookkeepingTest extends GeneralTest {
 	}
 	
 	@Test
-	public void updateAsset() {
+	public void t4_updateAsset() {
 		
 		Flux<Bookkeeping> bookkeepingFlux = bookkeepingService.findByUserId(userId).flatMap(bookkeeping -> {
 			Asset asset = new Asset();
 			asset.setId(assetId);
 			asset.setAssetType(AssetType.WALLET);
 			asset.setName("지갑이름 변경");
-			return bookkeepingService.updateAsset(bookkeeping.getId().toString(), asset);
+			return bookkeepingService.updateAsset(bookkeeping.getId(), asset);
 		});
 		
 		StepVerifier.create(bookkeepingFlux)
@@ -93,10 +96,10 @@ public class BookkeepingTest extends GeneralTest {
 	}
 	
 	@Test
-	public void deleteAsset() {
+	public void t5_deleteAsset() {
 		
 		Flux<Bookkeeping> bookkeepingFlux = bookkeepingService.findByUserId(userId).flatMap(bookkeeping -> {
-			return bookkeepingService.deleteAsset(bookkeeping.getId().toString(), assetId);
+			return bookkeepingService.deleteAsset(bookkeeping.getId(), assetId);
 		});
 		
 		StepVerifier.create(bookkeepingFlux)

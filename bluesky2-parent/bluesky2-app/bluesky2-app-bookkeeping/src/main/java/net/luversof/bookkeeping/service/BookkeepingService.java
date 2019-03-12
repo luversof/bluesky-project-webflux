@@ -42,7 +42,7 @@ public class BookkeepingService {
 			});
 	}
 	
-	public Mono<Bookkeeping> addAsset(String id, Asset asset) {
+	public Mono<Bookkeeping> addAsset(ObjectId id, Asset asset) {
 		return bookkeepingRepository.findById(id)
 			.flatMap(bookkeeping -> {
 				if (asset.getId() == null) {
@@ -59,7 +59,7 @@ public class BookkeepingService {
 	 * @param asset
 	 * @return
 	 */
-	public Mono<Bookkeeping> updateAsset(String id, Asset asset) {
+	public Mono<Bookkeeping> updateAsset(ObjectId id, Asset asset) {
 		return bookkeepingRepository.findById(id)
 				.flatMap(bookkeeping -> {
 					for (int i = 0 ; i < bookkeeping.getAssetList().size(); i++) {
@@ -72,7 +72,7 @@ public class BookkeepingService {
 				});
 	}
 	
-	public Mono<Bookkeeping> deleteAsset(String id, ObjectId assetId) {
+	public Mono<Bookkeeping> deleteAsset(ObjectId id, ObjectId assetId) {
 		return bookkeepingRepository.findById(id)
 				.flatMap(bookkeeping -> {
 					for (int i = 0 ; i < bookkeeping.getAssetList().size(); i++) {
