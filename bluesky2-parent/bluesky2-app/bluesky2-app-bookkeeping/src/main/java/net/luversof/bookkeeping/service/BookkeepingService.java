@@ -19,6 +19,10 @@ public class BookkeepingService {
 	@Autowired
 	private BookkeepingRepository bookkeepingRepository;
 	
+	public Mono<Bookkeeping> findById(ObjectId id) {
+		return bookkeepingRepository.findById(id);
+	}
+	
 	public Flux<Bookkeeping> findByUserId(UUID userId) {
 		return bookkeepingRepository.findByUserId(userId);
 	}
@@ -70,6 +74,10 @@ public class BookkeepingService {
 					}
 					throw new RuntimeException("NOT_EXIST_ASSET");
 				});
+	}
+	
+	Mono<Bookkeeping> save(Bookkeeping bookkeeping) {
+		return bookkeepingRepository.save(bookkeeping);
 	}
 	
 	public Mono<Bookkeeping> deleteAsset(ObjectId id, ObjectId assetId) {
