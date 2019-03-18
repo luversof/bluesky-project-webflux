@@ -77,6 +77,11 @@
 			</dependency>
 			<dependency>
 				<groupId>net.luversof</groupId>
+				<artifactId>bluesky2-app-bookkeeping</artifactId>
+				<version>${bluesky-project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.luversof</groupId>
 				<artifactId>bluesky2-app-notification</artifactId>
 				<version>${bluesky-project.version}</version>
 			</dependency>

@@ -24,7 +24,8 @@ public class BookkeepingService {
 	}
 	
 	public Flux<Bookkeeping> findByUserId(UUID userId) {
-		return bookkeepingRepository.findByUserId(userId);
+		//return bookkeepingRepository.findByUserId(userId);
+		return bookkeepingRepository.findAll();
 	}
 	
 	/**

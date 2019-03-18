@@ -3,7 +3,8 @@ package net.luversof.security.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
+import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,7 +15,9 @@ import org.springframework.security.web.server.header.XFrameOptionsServerHttpHea
 import net.luversof.security.oauth2.client.BlueskyReactiveOAuth2AuthorizedClientService;
 
 @Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableWebFluxSecurity
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableReactiveMethodSecurity
 public class SecurityConfig {
 	
 	@Bean
@@ -33,8 +36,7 @@ public class SecurityConfig {
 	    http
 	    	.headers().frameOptions().mode(Mode.SAMEORIGIN).and()
 	    	.authorizeExchange()
-	    		.pathMatchers("/**").permitAll()
-//	    		.anyExchange().permitAll()
+	    		.anyExchange().permitAll()
 	    		.and()
 //	    	 .exceptionHandling().accessDeniedHandler(accessDeniedHandler) // 이거 어떻게 바뀌었을까?
 //	    	.logout().logoutSuccessHandler(logoutSuccessHandler) // 5.0 이후

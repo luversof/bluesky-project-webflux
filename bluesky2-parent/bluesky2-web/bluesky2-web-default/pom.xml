@@ -24,11 +24,20 @@
 		</dependency>
 		<dependency>
 			<groupId>net.luversof</groupId>
+			<artifactId>bluesky2-app-bookkeeping</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.luversof</groupId>
 			<artifactId>bluesky2-app-notification</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>net.luversof</groupId>
 			<artifactId>bluesky2-opensource-security</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.glassfish</groupId>
+			<artifactId>javax.el</artifactId>
 		</dependency>
 	</dependencies>
 </project>
