@@ -3,8 +3,8 @@ package net.luversof.security.core.userdetails;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
-import org.bson.types.ObjectId;
 import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -22,7 +22,7 @@ public class BlueskyUser implements UserDetails, CredentialsContainer {
 	
 	private static final long serialVersionUID = -7218355940538132953L;
 	
-	private final ObjectId id;
+	private final UUID id;
 	private final String username;
 	private String password;
 	private final Collection<? extends GrantedAuthority> authorities;
@@ -37,7 +37,7 @@ public class BlueskyUser implements UserDetails, CredentialsContainer {
     
     public BlueskyUser(User user) {
     	this.user = user;
-    	this.id = user.getId();
+    	this.id = user.getUserId();
     	this.username = user.getUsername();
     	this.password = user.getPassword();
     	

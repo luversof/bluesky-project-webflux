@@ -2,6 +2,7 @@ package net.luversof.user.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,7 @@ public class UserService {
 	 */
 	public Mono<User> addUser(String username, String password) {
 		User user = new User();
+		user.setUserId(UUID.randomUUID());
 		user.setUsername(username);
 		user.setPassword(password);
 		user.setAccountNonExpired(true);
@@ -53,6 +55,7 @@ public class UserService {
 	 */
 	public Mono<User> addUser(String username, UserType userType, String externalId, List<String> authorityList) {
 		User user = new User();
+		user.setUserId(UUID.randomUUID());
 		user.setUsername(username);
 		user.setAccountNonExpired(true);
 		user.setAccountNonLocked(true);

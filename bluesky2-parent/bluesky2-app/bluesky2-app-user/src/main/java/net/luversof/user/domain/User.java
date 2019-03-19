@@ -8,6 +8,7 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.CompoundIndexes;
+import org.springframework.data.mongodb.core.index.Indexed;
 
 import lombok.Data;
 
@@ -19,8 +20,10 @@ public class User {
 	
 	private ObjectId id;
 	
+	@Indexed(unique = true)
 	private UUID userId;
 	
+	@Indexed(unique = true)
 	private String username;
 	
 	private String password;
