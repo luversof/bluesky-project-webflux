@@ -24,6 +24,12 @@ public class ReactiveUserDetailsContextHolder {
 		return Context.of(USERDETAILS_CONTEXT_KEY, userDetailsContext);
 	}
 	
+	public static Context withUserDetails(Mono<? extends UserDetails> userDetailsMono) {
+		return withUserDetailsContext(userDetailsMono.flatMap(userDetails -> {
+			return Mono.just(new UserDetailsContextImpl(userDetails));
+		}));
+	}
+	
 	public static Context withUserDetails(UserDetails userDetails) {
 		return withUserDetailsContext(Mono.just(new UserDetailsContextImpl(userDetails)));
 	}

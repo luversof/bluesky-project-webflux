@@ -1,5 +1,6 @@
 package net.luversof.security.core.context;
 
+import org.springframework.security.core.context.ReactiveSecurityContextHolder;
 import org.springframework.security.core.userdetails.ReactiveUserDetailsService;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebFilter;
@@ -20,8 +21,23 @@ public class BlueskyReactorContextWebFilter implements WebFilter {
 	}
 
 	private Context withUserDetailsContext(Context mainContext, ServerWebExchange exchange) {
-		return mainContext.putAll(reactiveUserDetailsService.findByUsername("").flatMap(userDetails -> {
-			return Mono.just(new UserDetailsContextImpl(userDetails));
+		return mainContext.putAll(ReactiveSecurityContextHolder.getContext().flatMap(securityContext -> {
+			return reactiveUserDetailsService.findByUsername("");
+		}).flatMap(userDetails -> {
+			UserDetailsContext userDetailsContext = new UserDetailsContextImpl(userDetails);
+			return Mono.just(userDetailsContext);
 		}).as(ReactiveUserDetailsContextHolder::withUserDetailsContext));
+		
+//		return mainContext.putAll(ReactiveSecurityContextHolder.getContext().flatMap(securityContext -> {
+//			return reactiveUserDetailsService.findByUsername("");
+//		}).as(ReactiveUserDetailsContextHolder::withUserDetails));
+		
+//		return mainContext.putAll(exchange.getSession().map(WebSession::getAttributes).flatMap(attrs -> {
+//			SecurityContext context = (SecurityContext) attrs.get("");
+//			return reactiveUserDetailsService.findByUsername("").flatMap(userDetails -> {
+//				return Mono.just(new UserDetailsContextImpl(userDetails));
+//			});
+//		}).as(ReactiveUserDetailsContextHolder::withUserDetailsContext));
+
 	}
 }
