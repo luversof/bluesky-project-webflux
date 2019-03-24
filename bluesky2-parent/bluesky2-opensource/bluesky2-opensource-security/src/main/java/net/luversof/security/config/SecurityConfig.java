@@ -7,7 +7,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
-import org.springframework.security.core.userdetails.ReactiveUserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
@@ -15,6 +14,7 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.header.XFrameOptionsServerHttpHeadersWriter.Mode;
 
 import net.luversof.security.core.context.BlueskyReactorContextWebFilter;
+import net.luversof.security.core.userdetails.BlueskyUserDetailsService;
 import net.luversof.security.oauth2.client.BlueskyReactiveOAuth2AuthorizedClientService;
 
 @Configuration
@@ -32,7 +32,7 @@ public class SecurityConfig {
 	private BlueskyReactiveOAuth2AuthorizedClientService blueskyReactiveOAuth2AuthorizedClientService;
 	
 	@Autowired
-	private ReactiveUserDetailsService reactiveUserDetailsService;
+	private BlueskyUserDetailsService blueskyUserDetailsService;
 	
 	@Bean
 	public SecurityWebFilterChain configure(ServerHttpSecurity http) throws Exception {
@@ -41,7 +41,7 @@ public class SecurityConfig {
 		
 	    http
 	    	.headers().frameOptions().mode(Mode.SAMEORIGIN).and()
-	    	.addFilterAt(new BlueskyReactorContextWebFilter(reactiveUserDetailsService), SecurityWebFiltersOrder.SERVER_REQUEST_CACHE)
+	    	.addFilterAt(new BlueskyReactorContextWebFilter(blueskyUserDetailsService), SecurityWebFiltersOrder.SERVER_REQUEST_CACHE)
 	    	.authorizeExchange()
 	    		.anyExchange().permitAll()
 	    		.and()
