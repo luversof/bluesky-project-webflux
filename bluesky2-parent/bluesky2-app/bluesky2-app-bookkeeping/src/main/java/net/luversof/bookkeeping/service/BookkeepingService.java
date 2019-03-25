@@ -36,7 +36,7 @@ public class BookkeepingService {
 	 * @return
 	 */
 	public Mono<Bookkeeping> create(UUID userId) {
-		return Mono.just(new Bookkeeping())
+		return bookkeepingRepository.findByUserId(userId).switchIfEmpty(Mono.just(new Bookkeeping())).next()
 			.flatMap(bookkeeping -> {
 				if (bookkeeping.getId() == null) {
 					bookkeeping.setUserId(userId);

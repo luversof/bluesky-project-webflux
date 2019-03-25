@@ -1,11 +1,17 @@
 package net.luversof.web.config;
 
+import javax.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.ReactiveAdapterRegistry;
 import org.springframework.web.reactive.config.CorsRegistry;
 import org.springframework.web.reactive.config.WebFluxConfigurer;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import net.luversof.boot.autoconfigure.data.mongo.databind.module.ObjectIdSerializerModule;
 import net.luversof.web.reactive.result.method.UserDetailsHandlerMethodArgumentResolver;
 
 @Configuration
@@ -15,8 +21,13 @@ public class WebFluxConfig implements WebFluxConfigurer {
 //	@Autowired
 //	private ThymeleafReactiveViewResolver thymeleafReactiveViewResolver;
 //	
-//	@Autowired
-//	private ObjectMapper objectMapper;
+	@Autowired
+	private ObjectMapper objectMapper;
+	
+	@PostConstruct
+	public void postConstruct() {
+		objectMapper.registerModule(new ObjectIdSerializerModule());
+	}
 
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
