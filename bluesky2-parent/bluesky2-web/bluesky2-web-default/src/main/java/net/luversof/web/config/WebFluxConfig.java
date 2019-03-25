@@ -1,17 +1,12 @@
 package net.luversof.web.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.filter.reactive.HiddenHttpMethodFilter;
+import org.springframework.core.ReactiveAdapterRegistry;
 import org.springframework.web.reactive.config.CorsRegistry;
-import org.springframework.web.reactive.config.EnableWebFlux;
-import org.springframework.web.reactive.config.ViewResolverRegistry;
 import org.springframework.web.reactive.config.WebFluxConfigurer;
-import org.thymeleaf.spring5.view.ThymeleafViewResolver;
-import org.thymeleaf.spring5.view.reactive.ThymeleafReactiveViewResolver;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import net.luversof.web.reactive.result.method.UserDetailsHandlerMethodArgumentResolver;
 
 @Configuration
 //@EnableWebFlux
@@ -26,6 +21,11 @@ public class WebFluxConfig implements WebFluxConfigurer {
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/**").allowedMethods("GET", "POST").allowCredentials(false);
+	}
+	
+	@Bean
+	public UserDetailsHandlerMethodArgumentResolver userDetailsHandlerMethodArgumentResolver() {
+		return new UserDetailsHandlerMethodArgumentResolver(ReactiveAdapterRegistry.getSharedInstance());
 	}
 	
 //	@Bean
