@@ -3,10 +3,13 @@ package net.luversof.web.bookkeeping.controller;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -42,9 +45,16 @@ public class BookkeepingController {
 	}
 	
 	@PostMapping("/asset")
-	public Mono<Bookkeeping> addAsset(BlueskyUser user, Asset asset) {
+	public Mono<Bookkeeping> addAsset(BlueskyUser user, @RequestBody @Validated(Asset.Create.class) Asset asset) {
 		return bookkeepingService.findByUserId(user.getId()).next().flatMap(bookkeeping -> {
 			return bookkeepingService.addAsset(bookkeeping.getId(), asset);
+		});
+	}
+	
+	@PutMapping("/asset")
+	public Mono<Bookkeeping> updateAsset(BlueskyUser user, @RequestBody @Validated(Asset.Update.class) Asset asset) {
+		return bookkeepingService.findByUserId(user.getId()).next().flatMap(bookkeeping -> {
+			return bookkeepingService.updateAsset(bookkeeping.getId(), asset);
 		});
 	}
 	

@@ -31,7 +31,7 @@ public class WebFluxConfig implements WebFluxConfigurer {
 
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
-		registry.addMapping("/**").allowedMethods("GET", "POST").allowCredentials(false);
+		registry.addMapping("/**").allowedMethods("GET", "POST", "PUT", "DELETE").allowCredentials(false);
 	}
 	
 	@Bean
