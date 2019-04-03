@@ -52,9 +52,22 @@ public class EntryTest extends GeneralTest {
 		StepVerifier.create(entryMono).expectNextMatches(entry -> entry.getAssetId().equals(assetId)).expectComplete()
 				.verify();
 	}
+	
+	@Test
+	public void t2_findEntry() {
+		Flux<Entry> entryFlux = bookkeepingService.findByUserId(userId).next().flatMapMany(bookkeeping -> {
+			Entry entry = new Entry();
+			entry.setBookkeepingId(bookkeeping.getId());
+			entry.setAssetId(assetId);
+			return entryService.findByAssetId(entry);
+		}).log();
+
+		StepVerifier.create(entryFlux).expectNextMatches(entry -> entry.getAssetId().equals(assetId)).expectComplete()
+				.verify();
+	}
 
 	@Test
-	public void t2_updateEntry() {
+	public void t3_updateEntry() {
 		Mono<Entry> entryMono = entryRepository.findAll().next().flatMap(entry -> {
 			entry.setAmount(42);
 			entry.setMemo("메모수정");
@@ -66,7 +79,7 @@ public class EntryTest extends GeneralTest {
 	}
 	
 	@Test
-	public void t3_deleteEntry() {
+	public void t4_deleteEntry() {
 		Mono<Void> voidMono = entryRepository.findAll().next().flatMap(entry -> {
 			return entryService.delete(entry);
 		});

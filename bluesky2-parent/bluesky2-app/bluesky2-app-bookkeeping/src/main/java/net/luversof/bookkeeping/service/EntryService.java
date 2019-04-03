@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import net.luversof.bookkeeping.domain.Asset;
 import net.luversof.bookkeeping.domain.Entry;
 import net.luversof.bookkeeping.repository.EntryRepository;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -16,6 +17,17 @@ public class EntryService {
 	
 	@Autowired
 	private BookkeepingService bookkeepingService;
+	
+	public Flux<Entry> findByAssetId(Entry entry) {
+		return bookkeepingService.findById(entry.getBookkeepingId()).flatMap(bookkeeping -> {
+			bookkeeping.getAssetList().stream()
+				.filter(x -> x.getId().equals(entry.getAssetId()))
+				.findAny().orElseThrow(() -> new RuntimeException("NOT_EXIST_ASSET"));
+			return Mono.just(bookkeeping);
+		}).flatMapMany(bookkeeping -> {
+			return entryRepository.findAll();
+		});
+	}
 	
 	public Mono<Entry> add(Entry entry) {
 		return bookkeepingService.findById(entry.getBookkeepingId()).flatMap(bookkeeping -> {
