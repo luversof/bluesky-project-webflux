@@ -1,7 +1,6 @@
 package net.luversof.bookkeeping;
 
 import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 import java.util.UUID;
 
 import org.bson.types.ObjectId;
@@ -10,7 +9,6 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import net.luversof.bookkeeping.domain.Bookkeeping;
 import net.luversof.bookkeeping.domain.Entry;
 import net.luversof.bookkeeping.repository.EntryRepository;
 import net.luversof.bookkeeping.service.BookkeepingService;
@@ -81,7 +79,7 @@ public class EntryTest extends GeneralTest {
 	@Test
 	public void t4_deleteEntry() {
 		Mono<Void> voidMono = entryRepository.findAll().next().flatMap(entry -> {
-			return entryService.delete(entry);
+			return entryService.delete(userId, entry.getId());
 		});
 		
 		StepVerifier.create(voidMono).verifyComplete();

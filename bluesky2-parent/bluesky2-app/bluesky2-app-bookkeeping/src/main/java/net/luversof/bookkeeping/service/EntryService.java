@@ -1,5 +1,8 @@
 package net.luversof.bookkeeping.service;
 
+import java.util.UUID;
+
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +20,10 @@ public class EntryService {
 	
 	@Autowired
 	private BookkeepingService bookkeepingService;
+	
+	public Flux<Entry> findByBookkeepingId(ObjectId bookkeepingId) {
+		return entryRepository.findByBookkeepingId(bookkeepingId);
+	}
 	
 	public Flux<Entry> findByAssetId(Entry entry) {
 		return bookkeepingService.findById(entry.getBookkeepingId()).flatMap(bookkeeping -> {
@@ -63,12 +70,18 @@ public class EntryService {
 		});
 	}
 	
-	public Mono<Void> delete(Entry entry) {
-		return bookkeepingService.findById(entry.getBookkeepingId()).flatMap(bookkeeping -> {
-			bookkeeping.getAssetList().stream()
-					.filter(x -> x.getId().equals(entry.getAssetId()))
-					.findAny().orElseThrow(() -> new RuntimeException("NOT_EXIST_ASSET"));
-			return entryRepository.deleteById(entry.getId());
+	
+	// 삭제시 체크 할 항목
+	// 해당 유저의 entry인지 체크 후 삭제
+	// 
+	public Mono<Void> delete(UUID userId, ObjectId entryId) {
+		return entryRepository.findById(entryId).flatMap(entry -> {
+			return bookkeepingService.findById(entry.getBookkeepingId()).flatMap(bookkeeping -> {
+				if (!bookkeeping.getUserId().equals(userId)) {
+					return Mono.empty();
+				}
+				return entryRepository.delete(entry);
+			});
 		});
 	}
 	
