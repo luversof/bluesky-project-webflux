@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,17 +39,17 @@ public class EntryController {
 	}
 	
 	@GetMapping("/search/findByAssetId")
-	public Flux<Entry> findByAssetId(Entry entry) {
+	public Flux<Entry> findByAssetId(@RequestBody Entry entry) {
 		return entryService.findByAssetId(entry);
 	}
 	
 	@PostMapping
-	public Mono<Entry> addEntry(Entry entry) {
+	public Mono<Entry> addEntry(@RequestBody Entry entry) {
 		return entryService.add(entry);
 	}
 	
 	@PutMapping
-	public Mono<Entry> updateEntry(Entry entry) {
+	public Mono<Entry> updateEntry(@RequestBody Entry entry) {
 		return entryService.update(entry);
 	}
 	

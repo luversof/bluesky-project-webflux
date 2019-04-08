@@ -13,11 +13,11 @@ public class Entry {
 	
 	private ObjectId bookkeepingId;
 	
+	private LocalDateTime entryDate;
+	
 	private ObjectId assetId;
 	
 	private long amount;
-	
-	private LocalDateTime entryDate;
 	
 	private String memo;
 	
