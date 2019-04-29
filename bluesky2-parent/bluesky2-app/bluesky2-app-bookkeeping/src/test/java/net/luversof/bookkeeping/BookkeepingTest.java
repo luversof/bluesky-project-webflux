@@ -25,7 +25,7 @@ public class BookkeepingTest extends GeneralTest {
 	
 	UUID userId = UUID.fromString("ea14af5b-c2bc-46ea-ab3c-e22dd7b364d1");
 	
-	ObjectId assetId = new ObjectId("5c86bb6eef53c9446c916876");
+	ObjectId assetId = new ObjectId("5cade44eef53c92c385ac51f");
 	
 	@Test
 	public void t1_create() {

@@ -1,5 +1,7 @@
 package net.luversof.bookkeeping;
 
+import static org.mockito.Mockito.verify;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -9,6 +11,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import lombok.extern.slf4j.Slf4j;
 import net.luversof.bookkeeping.domain.Entry;
 import net.luversof.bookkeeping.repository.EntryRepository;
 import net.luversof.bookkeeping.service.BookkeepingService;
@@ -18,6 +21,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
+@Slf4j
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class EntryTest extends GeneralTest {
 
@@ -32,12 +36,13 @@ public class EntryTest extends GeneralTest {
 
 	UUID userId = UUID.fromString("ea14af5b-c2bc-46ea-ab3c-e22dd7b364d1");
 
-	ObjectId assetId = new ObjectId("5c86bb6eef53c9446c916876");
+	ObjectId assetId = new ObjectId("5cade44eef53c92c385ac51f");
 
 	@Test
 	public void t1_addEntry() {
 
 		Mono<Entry> entryMono = bookkeepingService.findByUserId(userId).next().flatMap(bookkeeping -> {
+			log.debug("TEST : {}", bookkeeping);
 			Entry entry = new Entry();
 			entry.setBookkeepingId(bookkeeping.getId());
 			entry.setAssetId(assetId);
@@ -51,17 +56,37 @@ public class EntryTest extends GeneralTest {
 				.verify();
 	}
 	
+	ObjectId bookkeepingId;
+	
 	@Test
 	public void t2_findEntry() {
 		Flux<Entry> entryFlux = bookkeepingService.findByUserId(userId).next().flatMapMany(bookkeeping -> {
-			Entry entry = new Entry();
-			entry.setBookkeepingId(bookkeeping.getId());
-			entry.setAssetId(assetId);
-			return entryService.findByAssetId(entry);
-		}).log();
+			return Flux.fromIterable(bookkeeping.getAssetList()).flatMap(asset -> {
+				Entry entry = new Entry();
+				entry.setBookkeepingId(bookkeeping.getId());
+				entry.setAssetId(asset.getId());
+				bookkeepingId = entry.getBookkeepingId();
+				return entryService.findByAssetId(entry);
+			});
+		})
+		.flatMap(entry -> {
+			log.debug("entry : {}", entry.getAssetId());
+			return Mono.just(entry);
+		})
+		.log();
 
-		StepVerifier.create(entryFlux).expectNextMatches(entry -> entry.getAssetId().equals(assetId)).expectComplete()
-				.verify();
+		StepVerifier.create(entryFlux)
+//			.expectNextMatches(entry -> {
+//				log.debug("targetEntry : {}, {}, {}", entry.getAssetId().equals(assetId), entry.getAssetId(), assetId);
+//				return entry.getAssetId().equals(assetId);
+//			})
+		.expectComplete()
+		.verify();
+//		.verifyComplete();
+//			.expectComplete()
+//			.expectSubscription()
+//				.expectComplete().verify();
+//		.verifyComplete();
 	}
 
 	@Test
@@ -83,5 +108,18 @@ public class EntryTest extends GeneralTest {
 		});
 		
 		StepVerifier.create(voidMono).verifyComplete();
+	}
+	
+	@Test
+	public void t5_findEntry() {
+		Flux<Entry> entryFlux =  bookkeepingService.findByUserId(userId).next().flatMapMany(bookkeeping -> {
+			log.debug("EEEEEE : {}", bookkeeping);
+			return entryRepository.findByBookkeepingIdAndEntryDateBetween(bookkeeping.getId(), LocalDateTime.now().minusYears(10), LocalDateTime.now());
+		}).log();
+		
+		StepVerifier.create(entryFlux).expectNextMatches(entry -> {
+			log.debug("test!!!! : {}", entry);
+			return true;
+		}).expectComplete().verify();
 	}
 }

@@ -26,13 +26,11 @@ public class EntryService {
 	}
 	
 	public Flux<Entry> findByAssetId(Entry entry) {
-		return bookkeepingService.findById(entry.getBookkeepingId()).flatMap(bookkeeping -> {
-			bookkeeping.getAssetList().stream()
+		return bookkeepingService.findById(entry.getBookkeepingId()).flatMapMany(bookkeeping -> {
+			Asset asset = bookkeeping.getAssetList().stream()
 				.filter(x -> x.getId().equals(entry.getAssetId()))
 				.findAny().orElseThrow(() -> new RuntimeException("NOT_EXIST_ASSET"));
-			return Mono.just(bookkeeping);
-		}).flatMapMany(bookkeeping -> {
-			return entryRepository.findAll();
+			return entryRepository.findByAssetId(asset.getId());
 		});
 	}
 	
