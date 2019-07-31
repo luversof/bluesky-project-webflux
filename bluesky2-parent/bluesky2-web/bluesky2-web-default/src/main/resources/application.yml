@@ -2,15 +2,15 @@ server:
   port: 8082
 spring:
   application:
-    name: bluesky-web-default
+    name: bluesky2-web-default
   messages.basename: classpath:static/message/message
-  mvc:
-    locale: KO_KR
-    contentnegotiation:
-      favor-path-extension: true
-      media-types:
-        json: application/json
-    pathmatch.use-suffix-pattern: true
+#  mvc:
+#    locale: KO_KR
+#    contentnegotiation:
+#      favor-path-extension: true
+#      media-types:
+#        json: application/json
+#    pathmatch.use-suffix-pattern: true
   jackson:
     serialization:
       write-dates-as-timestamps: false
