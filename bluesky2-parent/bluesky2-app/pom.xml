@@ -14,7 +14,7 @@
 		<module>bluesky2-app-notification</module>
 		<module>bluesky2-app-user</module>
 		<module>bluesky2-app-bookkeeping</module>
-	</modules>
+    </modules>
 	<dependencies>
 		<dependency>
 			<groupId>net.luversof</groupId>
