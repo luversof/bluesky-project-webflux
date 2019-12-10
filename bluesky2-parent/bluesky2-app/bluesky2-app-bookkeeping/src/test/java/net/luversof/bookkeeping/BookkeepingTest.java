@@ -40,7 +40,7 @@ public class BookkeepingTest extends GeneralTest {
 	
 	@Test
 	public void t2_findByUserId() {
-		Flux<Bookkeeping> bookkeepingFlux = bookkeepingService.getUserBookkeeping(userId).log();
+		Mono<Bookkeeping> bookkeepingFlux = bookkeepingService.getUserBookkeeping(userId).log();
 		
 		StepVerifier.create(bookkeepingFlux)
 			.expectNextMatches(bookkeeping -> bookkeeping.getUserId().equals(userId))
@@ -48,45 +48,4 @@ public class BookkeepingTest extends GeneralTest {
 			.verify();
 	}
 	
-	@Test
-	public void t3_addAsset() {
-		Flux<Bookkeeping> bookkeepingFlux = bookkeepingService.getUserBookkeeping(userId).flatMap(bookkeeping -> {
-			Asset asset = new Asset();
-			asset.setId(assetId);
-			asset.setAssetType(AssetType.WALLET);
-			asset.setName("지갑");
-			return bookkeepingService.addAsset(bookkeeping.getId(), asset);
-		}).log();
-		
-		StepVerifier.create(bookkeepingFlux).expectNextMatches(bookkeeping -> {
-			return bookkeeping.getUserId().equals(userId);
-		}).expectComplete().verify();
-	}
-	
-	@Test
-	public void t4_updateAsset() {
-		Flux<Bookkeeping> bookkeepingFlux = bookkeepingService.getUserBookkeeping(userId).flatMap(bookkeeping -> {
-			Asset asset = new Asset();
-			asset.setId(assetId);
-			asset.setAssetType(AssetType.WALLET);
-			asset.setName("지갑이름 변경");
-			return bookkeepingService.updateAsset(bookkeeping.getId(), asset);
-		}).log();
-		
-		StepVerifier.create(bookkeepingFlux).expectNextMatches(bookkeeping -> {
-			return bookkeeping.getUserId().equals(userId);
-		}).expectComplete().verify();
-	}
-	
-	@Test
-	public void t5_deleteAsset() {
-		
-		Flux<Bookkeeping> bookkeepingFlux = bookkeepingService.getUserBookkeeping(userId).flatMap(bookkeeping -> {
-			return bookkeepingService.deleteAsset(bookkeeping.getId(), assetId);
-		}).log();
-		
-		StepVerifier.create(bookkeepingFlux).expectNextMatches(bookkeeping -> {
-			return bookkeeping.getUserId().equals(userId);
-		}).expectComplete().verify();
-	}
 }
