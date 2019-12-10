@@ -2,16 +2,15 @@ package net.luversof.bookkeeping.repository;
 
 import java.util.UUID;
 
-import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import net.luversof.bookkeeping.domain.Bookkeeping;
 import reactor.core.publisher.Flux;
 
-public interface BookkeepingRepository extends ReactiveMongoRepository<Bookkeeping, ObjectId> {
+@Transactional(readOnly = true)
+public interface BookkeepingRepository extends ReactiveCrudRepository<Bookkeeping, Long> {
 	
 	Flux<Bookkeeping> findByUserId(UUID userId);
-	
-//	Mono<Bookkeeping> findByAssetListId(ObjectId id);
 
 }

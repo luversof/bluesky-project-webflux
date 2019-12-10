@@ -2,14 +2,12 @@ package net.luversof.bookkeeping;
 
 import java.util.UUID;
 
-import org.bson.types.ObjectId;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import net.luversof.bookkeeping.constant.AssetType;
-import net.luversof.bookkeeping.domain.Asset;
 import net.luversof.bookkeeping.domain.Bookkeeping;
 import net.luversof.bookkeeping.service.BookkeepingService;
 import net.luversof.test.GeneralTest;
@@ -25,14 +23,13 @@ public class BookkeepingTest extends GeneralTest {
 	
 	UUID userId = UUID.fromString("ea14af5b-c2bc-46ea-ab3c-e22dd7b364d1");
 	
-	ObjectId assetId = new ObjectId("5cade44eef53c92c385ac51f");
 	
 	@Test
 	public void t1_create() {
-		Mono<Bookkeeping> bookkeepingMono = bookkeepingService.findByUserId(userId)
-				.switchIfEmpty(Mono.just(new Bookkeeping())).next().flatMap(bookkeeping -> {
+		Mono<Bookkeeping> bookkeepingMono = bookkeepingService.getUserBookkeeping(userId)
+				.flatMap(bookkeeping -> {
 					if (bookkeeping.getId() == null) {
-						return bookkeepingService.create(userId);
+						return bookkeepingService.createUserBookkeeping(bookkeeping);
 					}
 					return Mono.just(bookkeeping);
 				}).log();
@@ -43,7 +40,7 @@ public class BookkeepingTest extends GeneralTest {
 	
 	@Test
 	public void t2_findByUserId() {
-		Flux<Bookkeeping> bookkeepingFlux = bookkeepingService.findByUserId(userId).log();
+		Flux<Bookkeeping> bookkeepingFlux = bookkeepingService.getUserBookkeeping(userId).log();
 		
 		StepVerifier.create(bookkeepingFlux)
 			.expectNextMatches(bookkeeping -> bookkeeping.getUserId().equals(userId))
@@ -53,7 +50,7 @@ public class BookkeepingTest extends GeneralTest {
 	
 	@Test
 	public void t3_addAsset() {
-		Flux<Bookkeeping> bookkeepingFlux = bookkeepingService.findByUserId(userId).flatMap(bookkeeping -> {
+		Flux<Bookkeeping> bookkeepingFlux = bookkeepingService.getUserBookkeeping(userId).flatMap(bookkeeping -> {
 			Asset asset = new Asset();
 			asset.setId(assetId);
 			asset.setAssetType(AssetType.WALLET);
@@ -68,7 +65,7 @@ public class BookkeepingTest extends GeneralTest {
 	
 	@Test
 	public void t4_updateAsset() {
-		Flux<Bookkeeping> bookkeepingFlux = bookkeepingService.findByUserId(userId).flatMap(bookkeeping -> {
+		Flux<Bookkeeping> bookkeepingFlux = bookkeepingService.getUserBookkeeping(userId).flatMap(bookkeeping -> {
 			Asset asset = new Asset();
 			asset.setId(assetId);
 			asset.setAssetType(AssetType.WALLET);
@@ -84,7 +81,7 @@ public class BookkeepingTest extends GeneralTest {
 	@Test
 	public void t5_deleteAsset() {
 		
-		Flux<Bookkeeping> bookkeepingFlux = bookkeepingService.findByUserId(userId).flatMap(bookkeeping -> {
+		Flux<Bookkeeping> bookkeepingFlux = bookkeepingService.getUserBookkeeping(userId).flatMap(bookkeeping -> {
 			return bookkeepingService.deleteAsset(bookkeeping.getId(), assetId);
 		}).log();
 		

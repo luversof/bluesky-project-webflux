@@ -10,12 +10,13 @@
 	<artifactId>bluesky2-app-bookkeeping</artifactId>
 	<dependencies>
 		<dependency>
-			<groupId>net.luversof.boot</groupId>
-			<artifactId>bluesky-boot-starter-data-mongodb-reactive</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate.validator</groupId>
-			<artifactId>hibernate-validator</artifactId>
-		</dependency>
+            <groupId>org.springframework.boot.experimental</groupId>
+            <artifactId>spring-boot-starter-data-r2dbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot.experimental</groupId>
+            <artifactId>spring-boot-test-autoconfigure-r2dbc</artifactId>
+            <scope>test</scope>
+        </dependency>
 	</dependencies>
 </project>

@@ -1,24 +1,42 @@
 package net.luversof.bookkeeping.domain;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
-import org.bson.types.ObjectId;
-import org.springframework.data.annotation.CreatedDate;
+import javax.validation.constraints.NotBlank;
+
+import org.hibernate.validator.constraints.Range;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
 
 import lombok.Data;
 
 @Data
 public class Bookkeeping {
 
-	private ObjectId id;
+	@Id
+//	@GeneratedValue(generator = "uuid-gen")
+//	@GenericGenerator(name = "uuid-gen", strategy = "uuid2")
+//	@Column(length = 16)
+	private UUID id;
 
+	@NotBlank(groups = { Create.class, Update.class })
+	private String name;
+
+	@Column("user_id")
 	private UUID userId;
-	
-	@CreatedDate
-	private LocalDateTime createdDate;
-	
-	private List<Asset> assetList = new ArrayList<>();
+
+	/**
+	 * 시작일. startDay라고 해야하나?
+	 */
+	@Range(min = 1, max = 28, groups = { Create.class, Update.class })
+	private int baseDate = 1;
+
+	public interface Create {
+	}
+
+	public interface Update {
+	}
+
+	public interface Search {
+	}
 }

@@ -22,6 +22,10 @@
 		</dependency>
 		<dependency>
 			<groupId>net.luversof</groupId>
+			<artifactId>bluesky2-domain</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.luversof</groupId>
 			<artifactId>bluesky2-test</artifactId>
 		</dependency>
 	</dependencies>
