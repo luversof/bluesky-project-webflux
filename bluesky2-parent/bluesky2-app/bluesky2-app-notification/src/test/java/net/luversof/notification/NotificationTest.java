@@ -35,7 +35,6 @@ public class NotificationTest extends GeneralTest {
 		
 		ObjectId id = notification.getId();
 		
-		log.debug("test : {}", id.getCounter());
 		log.debug("test : {}", id.getDate());
 		log.debug("test : {}", id.getTimestamp());
 		
