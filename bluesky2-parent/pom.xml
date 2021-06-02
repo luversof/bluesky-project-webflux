@@ -7,7 +7,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<parent>
-		<groupId>net.luversof.boot</groupId>
+		<groupId>io.github.luversof</groupId>
 		<artifactId>bluesky-boot-starter-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
@@ -37,7 +37,7 @@
 		<!-- (e) spring boot test -->
 		
 		<dependency>
-			<groupId>net.luversof.boot</groupId>
+			<groupId>io.github.luversof</groupId>
 			<artifactId>bluesky-boot-starter</artifactId>
 		</dependency>
 		<dependency>

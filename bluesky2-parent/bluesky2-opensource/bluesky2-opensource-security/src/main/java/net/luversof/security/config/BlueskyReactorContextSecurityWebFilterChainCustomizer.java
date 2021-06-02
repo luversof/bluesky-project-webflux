@@ -5,7 +5,7 @@ import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.stereotype.Component;
 
-import net.luversof.boot.autoconfigure.security.reactive.SecurityWebFilterChainCustomizer;
+import io.github.luversof.boot.autoconfigure.security.reactive.SecurityWebFilterChainCustomizer;
 import net.luversof.security.core.context.BlueskyReactorContextWebFilter;
 import net.luversof.security.core.userdetails.BlueskyUserDetailsService;
 

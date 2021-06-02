@@ -5,9 +5,6 @@ import static org.mockito.Mockito.verify;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import org.junit.FixMethodOrder;
-import org.junit.Test;
-import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +15,6 @@ import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 @Slf4j
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class EntryTest extends GeneralTest {
 //
 //	@Autowired

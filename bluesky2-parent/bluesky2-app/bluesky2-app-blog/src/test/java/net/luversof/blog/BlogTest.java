@@ -1,10 +1,10 @@
 package net.luversof.blog;
 
-import static org.junit.Assert.assertNotNull;
 
 import java.util.UUID;
 
-import org.junit.Test;
+import org.bson.assertions.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import lombok.extern.slf4j.Slf4j;
@@ -47,7 +47,7 @@ public class BlogTest extends GeneralTest {
 		StepVerifier.create(blogFlux)
 		.assertNext(blog -> {
 			log.debug("assert Test : {}", blog);
-			assertNotNull(blog.getId());
+			Assertions.notNull("blog Id", blog.getId());
 		})
 		.expectNextCount(1)
 		.expectComplete()

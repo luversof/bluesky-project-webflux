@@ -21,7 +21,7 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import net.luversof.boot.autoconfigure.data.mongo.databind.module.ObjectIdSerializerModule;
+import io.github.luversof.boot.autoconfigure.data.mongo.databind.module.ObjectIdSerializerModule;
 import net.luversof.web.reactive.result.method.UserDetailsHandlerMethodArgumentResolver;
 
 @Configuration

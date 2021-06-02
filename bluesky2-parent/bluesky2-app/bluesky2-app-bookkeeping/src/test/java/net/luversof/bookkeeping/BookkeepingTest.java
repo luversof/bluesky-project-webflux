@@ -2,9 +2,7 @@ package net.luversof.bookkeeping;
 
 import java.util.UUID;
 
-import org.junit.FixMethodOrder;
-import org.junit.Test;
-import org.junit.runners.MethodSorters;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import net.luversof.bookkeeping.constant.AssetType;
@@ -15,7 +13,6 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class BookkeepingTest extends GeneralTest {
 
 	@Autowired

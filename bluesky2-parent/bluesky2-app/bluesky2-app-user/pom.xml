@@ -10,7 +10,7 @@
 	<artifactId>bluesky2-app-user</artifactId>
 	<dependencies>
 		<dependency>
-			<groupId>net.luversof.boot</groupId>
+			<groupId>io.github.luversof</groupId>
 			<artifactId>bluesky-boot-starter-data-mongodb-reactive</artifactId>
 		</dependency>
 	</dependencies>
