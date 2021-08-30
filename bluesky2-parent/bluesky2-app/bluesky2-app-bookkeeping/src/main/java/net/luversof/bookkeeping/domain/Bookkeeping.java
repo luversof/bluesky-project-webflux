@@ -6,7 +6,6 @@ import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.Range;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Column;
 
 import lombok.Data;
 
@@ -22,7 +21,7 @@ public class Bookkeeping {
 	@NotBlank(groups = { Create.class, Update.class })
 	private String name;
 
-	@Column("user_id")
+//	@Column("user_id")
 	private UUID userId;
 
 	/**
